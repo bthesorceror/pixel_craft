@@ -1,0 +1,17 @@
+{
+  "name": "pixel_craft",
+  "version": "0.0.1",
+  "description": "Making art in minecraft",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "minecraft",
+    "wool",
+    "web"
+  ],
+  "repository": "http://github.com/bthesorceror/pixel_craft",
+  "author": "Brandon Farmer and Shane Riley",
+  "license": "BSD"
+}
