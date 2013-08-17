@@ -13,5 +13,10 @@
   ],
   "repository": "http://github.com/bthesorceror/pixel_craft",
   "author": "Brandon Farmer and Shane Riley",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "rudder": "0.0.3",
+    "journeyman": "0.0.5",
+    "lightning_strike": "0.0.2"
+  }
 }
