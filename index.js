@@ -1,6 +1,6 @@
+var LightningStrike = require('lightning_strike');
 var Journeyman      = require('journeyman');
 var Rudder          = require('rudder');
-var LightningStrike = require('lightning_strike');
 var path            = require('path');
 
 var journeyman = new Journeyman(3000);

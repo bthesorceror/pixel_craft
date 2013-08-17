@@ -1,0 +1,94 @@
+@import "mixins"
+
+= button($bg: #0066cc)
+  display: inline-block
+  -webkit-appearance: none
+  padding: 5px 10px
+  font: normal 13px Helvetica, Arial, sans-serif
+  text-decoration: none
+  color: #ffffff
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .3)
+  border: none
+  border-radius: 5px
+  background: $bg
+
+html, body
+  font: normal 14px Helvetica, Arial, sans-serif
+  background: transparent url("/images/stone_brick.png") 50% 50% repeat
+
+main
+  overflow: hidden
+  width: 1000px
+  padding: 30px
+  margin: 0 auto
+  background: #ffffff
+
+$names: white orange magenta light_blue yellow lime pink gray light_gray cyan purple blue brown green red black
+$colors: #dddddd #db7d3e #b350bc #6b8ac9 #b1a627 #41ae38 #d08499 #404040 #9aa1a1 #2e6e89 #7e3db5 #2e388d #4f321f #35461b #963430 #191616
+
+canvas
+  float: left
+  margin: 0 27px 0 0
+  cursor: crosshair
+  border: 2px solid #0066cc
+  &.grid
+    background: transparent url("/images/bg_canvas.png") repeat
+
+#sidebar
+  overflow: hidden
+
+ul#wool
+  width: 110px
+  li
+    float: left
+    margin: 0 0 3px 3px
+    padding: 1px
+    border: 1px solid #ffffff
+    &.active
+      border-color: #000000
+  a
+    display: block
+    width: 48px
+    height: 48px
+    text-indent: -8685px
+    overflow: hidden
+    background: transparent url("/images/wool.png") 0 0 no-repeat
+    @for $i from 1 through length($names)
+      &.#{nth($names, $i)}
+        background-color: nth($colors, $i)
+        background-position: -#{($i - 1) * 48}px 0
+
+form
+  clear: both
+  padding: 20px 0 0 3px
+  label
+    display: block
+    padding: 0 0 5px 0
+  input[type="text"]
+    width: 100%
+    height: 26px
+    padding: 3px 5px
+    margin: 0 0 10px 0
+    font: normal 13px Helvetica, Arial, sans-serif
+    color: #181818
+    border: 1px solid #c0c0c0
+    +box-sizing
+    &:focus
+      outline: none
+  input[type="submit"]
+    +button
+  p.error
+    display: none
+    padding: 3px 5px
+    margin: 0 0 10px 0
+    font-size: 12px
+    font-weight: bold
+    color: #b00b00
+    border: 2px solid #b00b00
+    background: #fccfcc
+
+.controls
+  padding: 0 0 15px 0
+  a
+    +button(#888888)
+    margin: 0 5px 0 0

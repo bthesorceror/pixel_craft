@@ -4,7 +4,8 @@
   "description": "Making art in minecraft",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "sass": "sass --update sass:static/styles"
   },
   "keywords": [
     "minecraft",

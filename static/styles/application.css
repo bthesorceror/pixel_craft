@@ -1,0 +1,179 @@
+/*
+----------------------------------------
+Tantek Celik's Whitepsace Reset
+     Author:  	Tantek Celik, Shane Riley
+    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
+Description:	Resets default styling of common browsers to a common base
+----------------------------------------
+*/
+ul, ol {
+  list-style: none; }
+
+h1, h2, h3, h4, h5, h6, pre, code {
+  font-size: 1em; }
+
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, dl, dt, dd, figure, figcaption {
+  margin: 0;
+  padding: 0; }
+
+a img, :link img, :visited img, fieldset {
+  border: none; }
+
+address {
+  font-style: normal; }
+
+header, section, article, nav, footer, hgroup, details, summary, figure, main {
+  display: block; }
+
+mark {
+  color: inherit;
+  background: transparent; }
+
+abbr {
+  border: none; }
+
+summary::-webkit-details-marker {
+  display: none; }
+
+html, body {
+  font: normal 14px Helvetica, Arial, sans-serif;
+  background: transparent url("/images/stone_brick.png") 50% 50% repeat; }
+
+main {
+  overflow: hidden;
+  width: 1000px;
+  padding: 30px;
+  margin: 0 auto;
+  background: white; }
+
+canvas {
+  float: left;
+  margin: 0 27px 0 0;
+  cursor: crosshair;
+  border: 2px solid #0066cc; }
+  canvas.grid {
+    background: transparent url("/images/bg_canvas.png") repeat; }
+
+#sidebar {
+  overflow: hidden; }
+
+ul#wool {
+  width: 110px; }
+  ul#wool li {
+    float: left;
+    margin: 0 0 3px 3px;
+    padding: 1px;
+    border: 1px solid white; }
+    ul#wool li.active {
+      border-color: black; }
+  ul#wool a {
+    display: block;
+    width: 48px;
+    height: 48px;
+    text-indent: -8685px;
+    overflow: hidden;
+    background: transparent url("/images/wool.png") 0 0 no-repeat; }
+    ul#wool a.white {
+      background-color: #dddddd;
+      background-position: -0px 0; }
+    ul#wool a.orange {
+      background-color: #db7d3e;
+      background-position: -48px 0; }
+    ul#wool a.magenta {
+      background-color: #b350bc;
+      background-position: -96px 0; }
+    ul#wool a.light_blue {
+      background-color: #6b8ac9;
+      background-position: -144px 0; }
+    ul#wool a.yellow {
+      background-color: #b1a627;
+      background-position: -192px 0; }
+    ul#wool a.lime {
+      background-color: #41ae38;
+      background-position: -240px 0; }
+    ul#wool a.pink {
+      background-color: #d08499;
+      background-position: -288px 0; }
+    ul#wool a.gray {
+      background-color: #404040;
+      background-position: -336px 0; }
+    ul#wool a.light_gray {
+      background-color: #9aa1a1;
+      background-position: -384px 0; }
+    ul#wool a.cyan {
+      background-color: #2e6e89;
+      background-position: -432px 0; }
+    ul#wool a.purple {
+      background-color: #7e3db5;
+      background-position: -480px 0; }
+    ul#wool a.blue {
+      background-color: #2e388d;
+      background-position: -528px 0; }
+    ul#wool a.brown {
+      background-color: #4f321f;
+      background-position: -576px 0; }
+    ul#wool a.green {
+      background-color: #35461b;
+      background-position: -624px 0; }
+    ul#wool a.red {
+      background-color: #963430;
+      background-position: -672px 0; }
+    ul#wool a.black {
+      background-color: #191616;
+      background-position: -720px 0; }
+
+form {
+  clear: both;
+  padding: 20px 0 0 3px; }
+  form label {
+    display: block;
+    padding: 0 0 5px 0; }
+  form input[type="text"] {
+    width: 100%;
+    height: 26px;
+    padding: 3px 5px;
+    margin: 0 0 10px 0;
+    font: normal 13px Helvetica, Arial, sans-serif;
+    color: #181818;
+    border: 1px solid silver;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+    form input[type="text"]:focus {
+      outline: none; }
+  form input[type="submit"] {
+    display: inline-block;
+    -webkit-appearance: none;
+    padding: 5px 10px;
+    font: normal 13px Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 5px;
+    background: #0066cc; }
+  form p.error {
+    display: none;
+    padding: 3px 5px;
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #b00b00;
+    border: 2px solid #b00b00;
+    background: #fccfcc; }
+
+.controls {
+  padding: 0 0 15px 0; }
+  .controls a {
+    display: inline-block;
+    -webkit-appearance: none;
+    padding: 5px 10px;
+    font: normal 13px Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 5px;
+    background: #888888;
+    margin: 0 5px 0 0; }
