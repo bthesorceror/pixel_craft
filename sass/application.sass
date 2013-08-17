@@ -16,6 +16,9 @@ html, body
   font: normal 14px Helvetica, Arial, sans-serif
   background: transparent url("/images/stone_brick.png") 50% 50% repeat
 
+a.button
+  +button
+
 main
   overflow: hidden
   width: 1000px
@@ -58,6 +61,18 @@ ul#wool
         background-color: nth($colors, $i)
         background-position: -#{($i - 1) * 48}px 0
 
+#erase
+  float: right
+  width: 48px
+  height: 48px
+  text-indent: -8685px
+  overflow: hidden
+  border: 1px solid #ffffff
+  background: transparent url("/images/btn_erase.png") 0 0 no-repeat
+  &.active
+    border-color: #000000
+    background-position: 0 100%
+
 form
   clear: both
   padding: 20px 0 0 3px
@@ -77,6 +92,7 @@ form
       outline: none
   input[type="submit"]
     +button
+    margin: 0 5px 0 0
   p.error
     display: none
     padding: 3px 5px

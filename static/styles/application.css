@@ -39,6 +39,18 @@ html, body {
   font: normal 14px Helvetica, Arial, sans-serif;
   background: transparent url("/images/stone_brick.png") 50% 50% repeat; }
 
+a.button {
+  display: inline-block;
+  -webkit-appearance: none;
+  padding: 5px 10px;
+  font: normal 13px Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 5px;
+  background: #0066cc; }
+
 main {
   overflow: hidden;
   width: 1000px;
@@ -122,6 +134,18 @@ ul#wool {
       background-color: #191616;
       background-position: -720px 0; }
 
+#erase {
+  float: right;
+  width: 48px;
+  height: 48px;
+  text-indent: -8685px;
+  overflow: hidden;
+  border: 1px solid white;
+  background: transparent url("/images/btn_erase.png") 0 0 no-repeat; }
+  #erase.active {
+    border-color: black;
+    background-position: 0 100%; }
+
 form {
   clear: both;
   padding: 20px 0 0 3px; }
@@ -152,7 +176,8 @@ form {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     border: none;
     border-radius: 5px;
-    background: #0066cc; }
+    background: #0066cc;
+    margin: 0 5px 0 0; }
   form p.error {
     display: none;
     padding: 3px 5px;
