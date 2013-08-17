@@ -102,12 +102,20 @@ $(function() {
       mouseleave: canvas_actions.unbindFill
     });
 
-    var on_off = new BinaryObject("off", "on");
+    var on_off = new BinaryObject("off", "on"),
+        arrows = new BinaryObject("\273", "\253");
 
     $("#grid").on("click", function(e) {
       e.preventDefault();
       $(this).text("Grid " + on_off.val($c.hasClass("grid")));
       $c.toggleClass("grid");
+    });
+
+    $("a.handle").on("click", function(e) {
+      e.preventDefault();
+      var $s = $("#sidebar");
+      $(this).text(arrows.val($s.hasClass("opened")));
+      $s.toggleClass("opened");
     });
   }
 

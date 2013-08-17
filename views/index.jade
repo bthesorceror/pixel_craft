@@ -2,22 +2,20 @@ extends layouts/application
 
 block content
   .controls
-    a(href='#', id='grid')
-      Grid off
+    a(href='#', id='grid') Grid off
 
-  canvas.grid(width="768", height="768")
+  canvas.grid(width="960", height="960")
 
   #sidebar
+    a.handle(href="#") &laquo;
     ul#wool
       li.active
-        a.white(href='#')
-          white
+        a.white(href='#') white
       each color in ['orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black']
 
         li
-          a(href='#', class=color)
-    a#erase(href="#")
-      erase
+          a(href='#', class=color)= color
+    a#erase(href="#") erase
 
     form(action="", method="post")
       p.error Name is blank

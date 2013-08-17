@@ -53,13 +53,13 @@ a.button {
 
 main {
   overflow: hidden;
-  width: 1000px;
+  position: relative;
+  width: 964px;
   padding: 30px;
   margin: 0 auto;
   background: white; }
 
 canvas {
-  float: left;
   margin: 0 27px 0 0;
   cursor: crosshair;
   border: 2px solid #0066cc; }
@@ -67,7 +67,53 @@ canvas {
     background: transparent url("/static/images/bg_canvas.png") repeat; }
 
 #sidebar {
-  overflow: hidden; }
+  position: absolute;
+  right: -222px;
+  top: 70px;
+  z-index: 1;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #acacac;
+  background: #f9f9f9;
+  -webkit-box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-transition: right ease 200ms;
+  -moz-transition: right ease 200ms;
+  -o-transition: right ease 200ms; }
+  #sidebar a.handle {
+    position: absolute;
+    left: -19px;
+    top: -1px;
+    z-index: -1;
+    width: 18px;
+    height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 60px;
+    text-align: center;
+    text-decoration: none;
+    color: #333333;
+    cursor: pointer;
+    border: 1px solid #acacac;
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background: #f9f9f9;
+    -webkit-box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3); }
+    #sidebar a.handle:after {
+      position: absolute;
+      top: 0;
+      left: 18px;
+      bottom: 0;
+      z-index: 1;
+      width: 2px;
+      content: "";
+      background: #f9f9f9; }
+  #sidebar.opened {
+    right: -2px; }
 
 ul#wool {
   width: 110px; }

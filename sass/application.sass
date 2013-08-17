@@ -21,7 +21,8 @@ a.button
 
 main
   overflow: hidden
-  width: 1000px
+  position: relative
+  width: 964px
   padding: 30px
   margin: 0 auto
   background: #ffffff
@@ -30,7 +31,6 @@ $names: white orange magenta light_blue yellow lime pink gray light_gray cyan pu
 $colors: #dddddd #db7d3e #b350bc #6b8ac9 #b1a627 #41ae38 #d08499 #404040 #9aa1a1 #2e6e89 #7e3db5 #2e388d #4f321f #35461b #963430 #191616
 
 canvas
-  float: left
   margin: 0 27px 0 0
   cursor: crosshair
   border: 2px solid #0066cc
@@ -38,7 +38,46 @@ canvas
     background: transparent url("/static/images/bg_canvas.png") repeat
 
 #sidebar
-  overflow: hidden
+  position: absolute
+  right: -222px
+  top: 70px
+  z-index: 1
+  width: 200px
+  padding: 10px
+  border: 1px solid #acacac
+  background: #f9f9f9
+  +box-shadow(-1px 1px 2px rgba(0, 0, 0, .3))
+  +transition(right ease 200ms)
+  a.handle
+    position: absolute
+    left: -19px
+    top: -1px
+    z-index: -1
+    width: 18px
+    height: 60px
+    font-size: 16px
+    font-weight: bold
+    line-height: 60px
+    text-align: center
+    text-decoration: none
+    color: #333333
+    cursor: pointer
+    border: 1px solid #acacac
+    border-right: none
+    +border-left-radius(3px)
+    background: #f9f9f9
+    +box-shadow(-1px 1px 2px rgba(0, 0, 0, .3))
+    &:after
+      position: absolute
+      top: 0
+      left: 18px
+      bottom: 0
+      z-index: 1
+      width: 2px
+      content: ""
+      background: #f9f9f9
+  &.opened
+    right: -2px
 
 ul#wool
   width: 110px
