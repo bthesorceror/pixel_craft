@@ -1,6 +1,20 @@
 # Pixel Craft
 
-# Compiling sass files
+## Running server
+
+Install modules
+
+```
+npm install
+```
+
+Start server
+
+```
+node index.js
+```
+
+## Compiling sass files
 
 ```
 npm run sass
