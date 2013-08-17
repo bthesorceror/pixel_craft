@@ -37,7 +37,7 @@ summary::-webkit-details-marker {
 
 html, body {
   font: normal 14px Helvetica, Arial, sans-serif;
-  background: transparent url("/images/stone_brick.png") 50% 50% repeat; }
+  background: transparent url("/static/images/stone_brick.png") 50% 50% repeat; }
 
 a.button {
   display: inline-block;
@@ -64,7 +64,7 @@ canvas {
   cursor: crosshair;
   border: 2px solid #0066cc; }
   canvas.grid {
-    background: transparent url("/images/bg_canvas.png") repeat; }
+    background: transparent url("/static/images/bg_canvas.png") repeat; }
 
 #sidebar {
   overflow: hidden; }
@@ -84,7 +84,7 @@ ul#wool {
     height: 48px;
     text-indent: -8685px;
     overflow: hidden;
-    background: transparent url("/images/wool.png") 0 0 no-repeat; }
+    background: transparent url("/static/images/wool.png") 0 0 no-repeat; }
     ul#wool a.white {
       background-color: #dddddd;
       background-position: -0px 0; }
@@ -141,7 +141,7 @@ ul#wool {
   text-indent: -8685px;
   overflow: hidden;
   border: 1px solid white;
-  background: transparent url("/images/btn_erase.png") 0 0 no-repeat; }
+  background: transparent url("/static/images/btn_erase.png") 0 0 no-repeat; }
   #erase.active {
     border-color: black;
     background-position: 0 100%; }

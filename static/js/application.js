@@ -18,7 +18,7 @@ $(function() {
       matrix = [];
 
   img.onload = run;
-  img.src = "/images/wool.png";
+  img.src = "/static/images/wool.png";
 
   for (var r = 0; r < rows; r++) {
     matrix.push([]);
