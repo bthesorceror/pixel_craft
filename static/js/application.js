@@ -84,16 +84,31 @@ $(function() {
     $("form").on("submit", function(e) {
       e.preventDefault();
       var $f = $(this),
+          $error = $f.find(".error"),
+          url = $f.prop('action'),
+          method = $f.prop('method'),
           json = {
             name: $f.find("#name").val(),
             data: matrix
           };
       if (!json.name) {
-        $f.find(".error").show();
+        $error.text("Name cannot be blank").show();
         return;
       }
-      $f.find(".error").hide();
-      canvas_actions.download(json);
+      $.ajax({
+        url: url,
+        method: method,
+        data: JSON.stringify(json),
+        success: function(data) {
+          console.log("SUCCESS");
+          $error.hide();
+          canvas_actions.download(json);
+        },
+        error: function(xhr) {
+          var message = xhr.status == 409 ? "Name is already taken" : "Failed to save";
+          $error.text(message).show();
+        }
+      });
     });
 
     $c.on({
