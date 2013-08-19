@@ -4,12 +4,30 @@ var Journeyman      = require('journeyman');
 var Rudder          = require('rudder');
 var path            = require('path');
 var jade            = require('jade');
+var Runner5         = require('runner5');
+
 var ImageStore      = require('./lib/image_store');
 
 var journeyman  = new Journeyman(3000);
 var rudder      = new Rudder();
 var strike      = new LightningStrike(path.join(__dirname, 'static'));
 var image_store = new ImageStore(process.env.IMAGE_STORE_URL);
+
+rudder.get("/([a-zA-Z0-9]*).json", function(req, res, key) {
+  var runner = new Runner5(image_store, image_store.get);
+
+  runner.on('success', function(doc) {
+    res.writeHead(200, { 'Content-type': 'application/json' });
+    res.end(JSON.stringify(doc));
+  });
+
+  runner.on('failure', function(err) {
+    res.writeHead(500);
+    res.end("Failed to retreive document");
+  });
+
+  runner.run(key);
+});
 
 rudder.get("/", function(req, res) {
   res.render('index');
