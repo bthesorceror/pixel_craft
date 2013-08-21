@@ -1,3 +1,5 @@
+var dotenv = require("dotenv")();
+dotenv.load();
 var LightningStrike = require('lightning_strike');
 var TaxCollector    = require('tax_collector');
 var Journeyman      = require('journeyman');
