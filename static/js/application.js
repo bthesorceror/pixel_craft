@@ -61,11 +61,58 @@ $(function() {
             "class": "button",
             target: "_blank"
           });
-      $a.insertAfter($("form").find("[type=submit]"));
+      creation.$f.find("a.button").remove();
+      $a.insertAfter(creation.$f.find("[type=submit]"));
+    }
+  };
+
+  var creation = {
+    $f: $("form"),
+    $error: null,
+    compileJSON: function() {
+      this.json = {
+        name: this.$f.find("#name").val(),
+        data: matrix
+      };
+      return this.json;
+    },
+    save: function(e) {
+      e.preventDefault();
+      this.$success.hide();
+      this.compileJSON();
+      if (!this.json.name) {
+        this.$error.text("Name cannot be blank").show();
+        return;
+      }
+      this.send();
+    },
+    send: function() {
+      var self = this;
+      $.ajax({
+        url: self.$f.attr("action"),
+        type: self.$f.attr("method"),
+        data: JSON.stringify(self.json),
+        success: function(data) {
+          self.$error.hide();
+          self.$success.show();
+          canvas_actions.download(self.json);
+        },
+        error: function(xhr) {
+          var message = xhr.status == 409 ? "Name is already taken" : "Failed to save";
+          self.$error.text(message).show();
+        }
+      });
+    },
+    init: function() {
+      this.$error = this.$f.find(".error");
+      this.$success = this.$f.find(".success");
+      this.$f.on("submit", $.proxy(this.save, this));
     }
   };
 
   function run() {
+    creation.init();
+
     $("#wool").on("click", "a", function(e) {
       e.preventDefault();
       var $li = $(e.target).closest("li").addClass("active");
@@ -79,36 +126,6 @@ $(function() {
       $(this).addClass("active");
       $("#wool .active").removeClass("active");
       color = -1;
-    });
-
-    $("form").on("submit", function(e) {
-      e.preventDefault();
-      var $f = $(this),
-          $error = $f.find(".error"),
-          url = $f.prop('action'),
-          method = $f.prop('method'),
-          json = {
-            name: $f.find("#name").val(),
-            data: matrix
-          };
-      if (!json.name) {
-        $error.text("Name cannot be blank").show();
-        return;
-      }
-      $.ajax({
-        url: url,
-        method: method,
-        data: JSON.stringify(json),
-        success: function(data) {
-          console.log("SUCCESS");
-          $error.hide();
-          canvas_actions.download(json);
-        },
-        error: function(xhr) {
-          var message = xhr.status == 409 ? "Name is already taken" : "Failed to save";
-          $error.text(message).show();
-        }
-      });
     });
 
     $c.on({
