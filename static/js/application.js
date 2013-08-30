@@ -20,10 +20,12 @@ $(function() {
   img.onload = run;
   img.src = "/static/images/wool.png";
 
-  for (var r = 0; r < rows; r++) {
+  for (var c = 0; c < cols; c++) {
     matrix.push([]);
-    for (var c = 0; c < cols; c++) {
-      matrix[r].push(-1);
+    matrix[c].push([]);
+    matrix[c][0] = [];
+    for (var r = 0; r < rows; r++) {
+      matrix[c][0].push(-1);
     }
   }
 
@@ -37,7 +39,7 @@ $(function() {
           r = offset.left * b,
           c = offset.top * b;
       ctx.drawImage(img, color * b, 0, b, b, r, c, b, b);
-      matrix[offset.top][offset.left] = color;
+      matrix[offset.left][0][rows - offset.top - 1] = color;
     },
     unbindFill: function() {
       $c.off("mousemove.fill");
@@ -52,7 +54,7 @@ $(function() {
           r = offset.left * b,
           c = offset.top * b;
       ctx.clearRect(r, c, b, b);
-      matrix[offset.top][offset.left] = -1;
+      matrix[offset.left][0][rows - offset.top - 1] = -1;
     },
     download: function(json) {
       var $a = $("<a />", {
@@ -70,9 +72,10 @@ $(function() {
     $f: $("form"),
     $error: null,
     compileJSON: function() {
+      var data = [];
       this.json = {
         name: this.$f.find("#name").val(),
-        data: matrix
+        blocks: matrix
       };
       return this.json;
     },
