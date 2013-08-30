@@ -15,7 +15,23 @@ var rudder      = new Rudder();
 var strike      = new LightningStrike(path.join(__dirname, 'static'));
 var image_store = new ImageStore(process.env.IMAGE_STORE_URL);
 
-rudder.get("/([a-zA-Z0-9]*).json", function(req, res, key) {
+rudder.get("/list.json", function(req, res) {
+  var runner = new Runner5(image_store, image_store.list);
+
+  runner.on('success', function(doc) {
+    res.writeHead(200, { 'Content-type': 'application/json' });
+    res.end(JSON.stringify(doc));
+  });
+
+  runner.on('failure', function(err) {
+    res.writeHead(500);
+    res.end("Failed to retreive document");
+  });
+
+  runner.run();
+});
+
+rudder.get("/item/([a-zA-Z0-9]*).json", function(req, res, key) {
   var runner = new Runner5(image_store, image_store.get);
 
   runner.on('success', function(doc) {
