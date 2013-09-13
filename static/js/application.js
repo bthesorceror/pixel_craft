@@ -112,6 +112,10 @@ $(function() {
         this.$error.text("Name cannot be blank").show();
         return;
       }
+      if (/[^\w\d]/.test(this.json.name)) {
+        this.$error.text("Name can only be alphanumeric").show();
+        return;
+      }
       this.send();
     },
     load: function() {
