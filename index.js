@@ -31,6 +31,10 @@ rudder.get("/list.json", function(req, res) {
   runner.run();
 });
 
+rudder.get("/list", function(req, res) {
+  res.render("list");
+});
+
 rudder.get("/item/([a-zA-Z0-9]*).json", function(req, res, key) {
   var runner = new Runner5(image_store, image_store.get);
 

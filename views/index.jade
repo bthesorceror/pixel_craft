@@ -1,5 +1,8 @@
 extends layouts/application
 
+block head
+  script(src='/static/js/application.js')
+
 block content
   .controls
     a(href='#', id='grid') Grid off
