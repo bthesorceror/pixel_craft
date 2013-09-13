@@ -11,11 +11,26 @@ $(function() {
   List.View = Backbone.View.extend({
     el: $("#index")[0],
     template: Handlebars.compile($("#item").html()),
+    prepareModal: function() {
+      var $i = this.$el.find("img")
+      $i.css({
+        height: $(window).height() - 40
+      });
+      this.$el.show().css({
+        width: $i.width()
+      });
+      $i.on("click", $.proxy(this.close, this));
+      this.position();
+    },
     render: function() {
       var self = this,
           model = self.model.toJSON();
       $.each(model, function() {
-        self.$el.append(self.template(this));
+        var $el = $(self.template(this));
+        self.$el.append($el);
+        $el.find("figure a").modal({
+          beforeShow: self.prepareModal
+        });
       });
     },
     initialize: function() {

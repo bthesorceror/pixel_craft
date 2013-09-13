@@ -11,5 +11,6 @@ block content
   script#item(type="text/x-handlebars")
     article
       figure
-        img(src="{{screenshot}}", alt="{{name}}")
+        a(href="{{screenshot}}")
+          img(src="{{screenshot}}", alt="{{name}}")
       h1 {{name}}
