@@ -14,6 +14,7 @@ var journeyman  = new Journeyman(3000);
 var rudder      = new Rudder();
 var strike      = new LightningStrike(path.join(__dirname, 'static'));
 var image_store = new ImageStore(process.env.IMAGE_STORE_URL);
+var name_regex = "([a-zA-Z0-9]*)";
 
 rudder.get("/list.json", function(req, res) {
   var runner = new Runner5(image_store, image_store.list);
@@ -28,11 +29,11 @@ rudder.get("/new", function(req, res) {
   res.render("show");
 });
 
-rudder.get("/design/([a-zA-Z0-9]*)", function(req, res, key) {
+rudder.get("/design/" + name_regex, function(req, res, key) {
   res.render("show");
 });
 
-rudder.get("/item/([a-zA-Z0-9]*).json", function(req, res, key) {
+rudder.get("/item/" + name_regex + ".json", function(req, res, key) {
   var runner = new Runner5(image_store, image_store.get);
   runner.resource = res;
 
@@ -46,7 +47,6 @@ rudder.get("/images/([a-zA-Z0-9]*).png", function(req, res, key) {
 
   runner.on('success', function(doc) {
     res.writeHead(200, { 'Content-type': 'image/png' });
-    console.dir(doc);
     var buffer = new Buffer(doc.dataURL.replace(/^data:.+,/, ""), "base64");
     res.end(buffer);
   });
@@ -61,6 +61,22 @@ rudder.get("/images/([a-zA-Z0-9]*).png", function(req, res, key) {
 
 rudder.get("/", function(req, res) {
   res.render('index');
+});
+
+rudder.del("/design/" + name_regex, function(req, res, key) {
+  var runner = new Runner5(image_store, image_store.destroy);
+
+  runner.on("success", function() {
+    res.writeHead(200, { "Content-type": "text/plain" });
+    res.end("ok");
+  });
+
+  runner.on("failure", function(err) {
+    console.log(err);
+    res.writeHead(500, { "Content-type": "text/plain" });
+    res.end();
+  });
+  runner.run(key);
 });
 
 rudder.post("/save", function(req, res) {

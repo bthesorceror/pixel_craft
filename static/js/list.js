@@ -1,6 +1,22 @@
 $(function() {
   var List = {}, list, view;
 
+  function Success(msg) {
+    var $msg;
+    this.$msg = $msg = $("<div />", {
+      "class": "notice",
+      text: msg
+    }).prependTo(document.body);
+    $msg.css({
+      marginLeft: -$msg.outerWidth() / 2
+    });
+    $msg.delay(5000).animate({
+      top: -$msg.outerHeight()
+    }, 200, function() {
+      $msg.remove();
+    });
+  }
+
   List.Model = Backbone.Model.extend({
     url: "/list.json",
     parse: function(json) {
@@ -10,6 +26,23 @@ $(function() {
 
   List.View = Backbone.View.extend({
     el: $("#items")[0],
+    events: {
+      "click a.delete": "destroy"
+    },
+    destroy: function(e) {
+      e.preventDefault();
+      var $e = $(e.target),
+          nevermind = !confirm("Do you really want to delete this awesome design?");
+      if (nevermind) { return; }
+      $.ajax({
+        url: $e.attr("href"),
+        type: "delete",
+        success: function() {
+          $e.closest("article").remove();
+          new Success($e.text() + " deleted successfully");
+        }
+      });
+    },
     template: Handlebars.compile($("#item").html()),
     prepareModal: function() {
       var $i = this.$el.find("img")

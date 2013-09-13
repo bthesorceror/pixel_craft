@@ -38,6 +38,18 @@ canvas
   &.grid
     background: transparent url("/static/images/bg_canvas.png") repeat
 
+.notice
+  position: absolute
+  top: 0
+  left: 50%
+  z-index: 100
+  padding: 3px 8px
+  font-size: 16px
+  font-weight: bold
+  color: #339933
+  border: 2px solid #339933
+  background: #ccffcc
+
 #sidebar
   position: absolute
   right: -222px
@@ -164,8 +176,12 @@ form
     padding: 15px 0
     h1
       display: inline-block
+      padding: 0 15px 0 0
       font-size: 18px
       vertical-align: middle
+      a
+        color: #0066cc
+        text-decoration: none
     figure
       display: inline-block
       width: 48px
@@ -177,6 +193,9 @@ form
       img
         width: 100%
         border: 1px solid #cecece
+    a.delete
+      +button(#b00b00)
+      vertical-align: middle
     + article
       border-top: 1px solid #f0f0f0
 
