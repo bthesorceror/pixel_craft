@@ -1,29 +1,20 @@
 extends layouts/application
 
 block head
-  script(src='/static/js/application.js')
+  script(src="static/js/list.js")
 
 block content
-  .controls
-    a(href='#', id='grid') Grid off
+  section#index
+    header
+      h1 All Designs
+    #items
+    p
+      a.button(href="/new") Create a design
 
-  canvas.grid(width="960", height="960")
-
-  #sidebar
-    a.handle(href="#") &laquo;
-    ul#wool
-      li.active
-        a.white(href='#') white
-      each color in ['orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black']
-
-        li
-          a(href='#', class=color)= color
-    a#erase(href="#") erase
-
-    form(action="/save", method="post")
-      p.error Name is blank
-      p.success Pixel art saved!
-      fieldset
-        label Name
-        input#name(type="text", name="name")
-        input(type="submit", value="Save!")
+  script#item(type="text/x-handlebars")
+    article
+      figure
+        a(href="{{screenshot}}")
+          img(src="{{screenshot}}", alt="{{name}}")
+      h1
+        a(href="/design/{{name}}") {{name}}

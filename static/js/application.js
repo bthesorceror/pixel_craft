@@ -38,7 +38,11 @@ $(function() {
           b = block_size,
           r = offset.left * b,
           c = offset.top * b;
-      ctx.drawImage(img, color * b, 0, b, b, r, c, b, b);
+      canvas_actions.draw({
+        sx: color * b,
+        dx: r,
+        dy: c,
+      });
       matrix[offset.left][0][rows - offset.top - 1] = color;
     },
     unbindFill: function() {
@@ -47,6 +51,26 @@ $(function() {
     release: function(e) {
       color < 0 ? canvas_actions.erase(e) : canvas_actions.fill(e);
       canvas_actions.unbindFill();
+    },
+    render: function(json) {
+      $.each(json.blocks, function(idx) {
+        canvas_actions.drawCol(this[0].reverse(), idx);
+      });
+    },
+    drawCol: function(col, idx) {
+      var b = block_size;
+      $.each(col, function(row) {
+        if (this === -1) { return; }
+        canvas_actions.draw({
+          sx: this * b,
+          dx: idx * b,
+          dy: row * b
+        });
+      });
+    },
+    draw: function(opts) {
+      var b = block_size;
+      ctx.drawImage(img, opts.sx, 0, b, b, opts.dx, opts.dy, b, b);
     },
     erase: function(e) {
       var offset = getCursorOffset(e),
@@ -90,6 +114,15 @@ $(function() {
       }
       this.send();
     },
+    load: function() {
+      var args = window.location.pathname.replace(/^\//, "").split("/");
+      if (args.length === 1) { return; }
+      $.ajax({
+        url: "/item/" + args.pop() + ".json",
+        type: "get",
+        success: canvas_actions.render
+      });
+    },
     send: function() {
       var self = this;
       $.ajax({
@@ -111,6 +144,7 @@ $(function() {
       this.$error = this.$f.find(".error");
       this.$success = this.$f.find(".success");
       this.$f.on("submit", $.proxy(this.save, this));
+      this.load();
     }
   };
 

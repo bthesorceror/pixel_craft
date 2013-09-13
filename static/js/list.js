@@ -9,7 +9,7 @@ $(function() {
   });
 
   List.View = Backbone.View.extend({
-    el: $("#index")[0],
+    el: $("#items")[0],
     template: Handlebars.compile($("#item").html()),
     prepareModal: function() {
       var $i = this.$el.find("img")

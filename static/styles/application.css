@@ -36,7 +36,9 @@ summary::-webkit-details-marker {
   display: none; }
 
 html, body {
-  font: normal 14px Helvetica, Arial, sans-serif;
+  font: normal 14px Helvetica, Arial, sans-serif; }
+
+body {
   background: transparent url("/static/images/stone_brick.png") 50% 50% repeat; }
 
 a.button {
@@ -270,6 +272,9 @@ form {
     width: 48px;
     margin: 0 15px 0 0;
     vertical-align: middle; }
+    #index article figure a {
+      cursor: zoom-in;
+      cursor: -webkit-zoom-in; }
     #index article figure img {
       width: 100%;
       border: 1px solid #cecece; }

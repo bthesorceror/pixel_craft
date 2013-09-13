@@ -18,36 +18,26 @@ var image_store = new ImageStore(process.env.IMAGE_STORE_URL);
 
 rudder.get("/list.json", function(req, res) {
   var runner = new Runner5(image_store, image_store.list);
+  runner.resource = res;
 
-  runner.on('success', function(doc) {
-    res.writeHead(200, { 'Content-type': 'application/json' });
-    res.end(JSON.stringify(doc));
-  });
-
-  runner.on('failure', function(err) {
-    res.writeHead(500);
-    res.end("Failed to retreive document");
-  });
+  bindRunnerEvents(runner);
 
   runner.run();
 });
 
-rudder.get("/list", function(req, res) {
-  res.render("list");
+rudder.get("/new", function(req, res) {
+  res.render("show");
+});
+
+rudder.get("/design/([a-zA-Z0-9]*)", function(req, res, key) {
+  res.render("show");
 });
 
 rudder.get("/item/([a-zA-Z0-9]*).json", function(req, res, key) {
   var runner = new Runner5(image_store, image_store.get);
+  runner.resource = res;
 
-  runner.on('success', function(doc) {
-    res.writeHead(200, { 'Content-type': 'application/json' });
-    res.end(JSON.stringify(doc));
-  });
-
-  runner.on('failure', function(err) {
-    res.writeHead(500);
-    res.end("Failed to retreive document");
-  });
+  bindRunnerEvents(runner);
 
   runner.run(key);
 });
@@ -93,5 +83,17 @@ journeyman.use(function(req, res, next) {
   }
   next();
 });
+
+function bindRunnerEvents(runner) {
+  runner.on('success', function(doc) {
+    runner.resource.writeHead(200, { 'Content-type': 'application/json' });
+    runner.resource.end(JSON.stringify(doc));
+  });
+
+  runner.on('failure', function(err) {
+    runner.resource.writeHead(500);
+    runner.resource.end("Failed to retreive document");
+  });
+}
 
 journeyman.listen();
