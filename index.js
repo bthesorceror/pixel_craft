@@ -7,7 +7,6 @@ var Rudder          = require('rudder');
 var path            = require('path');
 var jade            = require('jade');
 var Runner5         = require('runner5');
-var file_system     = require("fs");
 
 var ImageStore      = require('./lib/image_store');
 
@@ -42,31 +41,48 @@ rudder.get("/item/([a-zA-Z0-9]*).json", function(req, res, key) {
   runner.run(key);
 });
 
+rudder.get("/images/([a-zA-Z0-9]*).png", function(req, res, key) {
+  var runner = new Runner5(image_store, image_store.get);
+
+  runner.on('success', function(doc) {
+    res.writeHead(200, { 'Content-type': 'image/png' });
+    console.dir(doc);
+    var buffer = new Buffer(doc.dataURL.replace(/^data:.+,/, ""), "base64");
+    res.end(buffer);
+  });
+
+  runner.on('failure', function(err) {
+    res.writeHead(500);
+    res.end("Failed to retreive document");
+  });
+
+  runner.run(key);
+});
+
 rudder.get("/", function(req, res) {
   res.render('index');
 });
 
 rudder.post("/save", function(req, res) {
   var collector = new TaxCollector(req);
-  var buildURL = function(name) {
-    var path = "/static/uploads/",
-        extension = ".png",
-        timestamp = +(new Date());
-    return path + name + "_" + timestamp + extension;
-  };
+  var json;
+
+  var runner = new Runner5(image_store, image_store.save);
+
+  runner.on('success', function() {
+    res.writeHead(200);
+    res.end();
+  });
+
+  runner.on('failure', function(err) {
+    res.writeHead(err.status_code);
+    res.end();
+  });
 
   collector.on('ready', function(data) {
-    var json = JSON.parse(data),
-        binary_data = new Buffer(json.dataURL.replace(/^data:.+,/, ""), "base64");
-    json.screenshot = buildURL(json.name);
-    image_store.save(json, function(err) {
-      var status_code = err ? err.status_code : 200;
-      res.writeHead(status_code);
-      res.end();
-      status_code === 200 && file_system.writeFile("." + json.screenshot, binary_data, function(error) {
-        console.log(error);
-      });
-    });
+    json = JSON.parse(data);
+    json.screenshot = ImageStore.buildImageUrl(json.name);
+    runner.run(json);
   });
 });
 
