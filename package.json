@@ -17,7 +17,7 @@
   "license": "BSD",
   "dependencies": {
     "tax_collector": "git+https://github.com/bthesorceror/tax_collector.git",
-    "rudder": "0.0.4",
+    "rudder": "0.0.5",
     "journeyman": "0.0.6",
     "lightning_strike": "0.0.2",
     "jade": "~0.34.1",
