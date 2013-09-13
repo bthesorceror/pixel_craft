@@ -20,7 +20,6 @@ $(function() {
       var self = this;
       $.each(list.models, function() {
         var model = this.toJSON();
-        console.dir(model);
         self.$el.append(self.template(model));
       });
     },

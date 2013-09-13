@@ -14,6 +14,10 @@ Start server
 node index.js
 ```
 
+## Additional Setup
+
+Create a static/uploads directory to store design screenshots.
+
 ## Compiling sass files
 
 ```

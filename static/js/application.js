@@ -75,7 +75,8 @@ $(function() {
       var data = [];
       this.json = {
         name: this.$f.find("#name").val(),
-        blocks: matrix
+        blocks: matrix,
+        dataURL: ctx.canvas.toDataURL()
       };
       return this.json;
     },

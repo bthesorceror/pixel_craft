@@ -7,6 +7,7 @@ var Rudder          = require('rudder');
 var path            = require('path');
 var jade            = require('jade');
 var Runner5         = require('runner5');
+var file_system     = require("fs");
 
 var ImageStore      = require('./lib/image_store');
 
@@ -57,13 +58,24 @@ rudder.get("/", function(req, res) {
 
 rudder.post("/save", function(req, res) {
   var collector = new TaxCollector(req);
+  var buildURL = function(name) {
+    var path = "/static/uploads/",
+        extension = ".png",
+        timestamp = +(new Date());
+    return path + name + "_" + timestamp + extension;
+  };
 
   collector.on('ready', function(data) {
-    var json = JSON.parse(data);
+    var json = JSON.parse(data),
+        binary_data = new Buffer(json.dataURL.replace(/^data:.+,/, ""), "base64");
+    json.screenshot = buildURL(json.name);
     image_store.save(json, function(err) {
       var status_code = err ? err.status_code : 200;
       res.writeHead(status_code);
       res.end();
+      status_code === 200 && file_system.writeFile("." + json.screenshot, binary_data, function(error) {
+        console.log(error);
+      });
     });
   });
 });
