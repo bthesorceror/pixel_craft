@@ -254,3 +254,24 @@ form {
     border-radius: 5px;
     background: #888888;
     margin: 0 5px 0 0; }
+
+#index header {
+  padding: 0 0 10px 0; }
+  #index header h1 {
+    font-size: 24px; }
+#index article {
+  padding: 15px 0; }
+  #index article h1 {
+    display: inline-block;
+    font-size: 18px;
+    vertical-align: middle; }
+  #index article figure {
+    display: inline-block;
+    width: 40px;
+    margin: 0 15px 0 0;
+    vertical-align: middle; }
+    #index article figure img {
+      width: 100%;
+      border: 1px solid #cecece; }
+  #index article + article {
+    border-top: 1px solid #f0f0f0; }
