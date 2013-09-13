@@ -1,15 +1,10 @@
 $(function() {
   var List = {}, list, view;
 
-  List.Model = Backbone.Model.extend();
-
-  List.Collection = Backbone.Collection.extend({
+  List.Model = Backbone.Model.extend({
     url: "/list.json",
-    model: List.Model,
     parse: function(json) {
       return json.items;
-    },
-    initialize: function() {
     }
   });
 
@@ -17,18 +12,17 @@ $(function() {
     el: $("#index")[0],
     template: Handlebars.compile($("#item").html()),
     render: function() {
-      var self = this;
-      $.each(list.models, function() {
-        var model = this.toJSON();
-        self.$el.append(self.template(model));
+      var self = this,
+          model = self.model.toJSON();
+      $.each(model, function() {
+        self.$el.append(self.template(this));
       });
     },
     initialize: function() {
-      this.listenTo(this.collection, "add", this.render);
+      this.model.fetch();
+      this.model.bind("change", this.render, this);
     }
   });
 
-  list = new List.Collection();
-  view = new List.View({ collection: list });
-  list.fetch();
+  view = new List.View({ model: new List.Model });
 });
