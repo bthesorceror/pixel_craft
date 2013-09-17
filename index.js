@@ -41,12 +41,11 @@ rudder.get("/item/" + name_regex + ".json", function(req, res, key) {
 });
 
 rudder.get("/images/([a-zA-Z0-9]*).png", function(req, res, key) {
-  var runner = new Runner5(image_store, image_store.get);
+  var runner = new Runner5(image_store, image_store.getImage);
 
-  runner.on('success', function(doc) {
+  runner.on('success', function(image) {
     res.writeHead(200, { 'Content-type': 'image/png' });
-    var buffer = new Buffer(doc.dataURL.replace(/^data:.+,/, ""), "base64");
-    res.end(buffer);
+    res.end(image);
   });
 
   runner.on('failure', commonFailure(res));
