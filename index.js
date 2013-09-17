@@ -18,9 +18,8 @@ var name_regex = "([a-zA-Z0-9]*)";
 
 rudder.get("/list.json", function(req, res) {
   var runner = new Runner5(image_store, image_store.list);
-  runner.resource = res;
 
-  bindRunnerEvents(runner);
+  sendCouchResponse(runner, res);
 
   runner.run();
 });
@@ -35,9 +34,8 @@ rudder.get("/design/" + name_regex, function(req, res, key) {
 
 rudder.get("/item/" + name_regex + ".json", function(req, res, key) {
   var runner = new Runner5(image_store, image_store.get);
-  runner.resource = res;
 
-  bindRunnerEvents(runner);
+  sendCouchResponse(runner, res);
 
   runner.run(key);
 });
@@ -51,10 +49,7 @@ rudder.get("/images/([a-zA-Z0-9]*).png", function(req, res, key) {
     res.end(buffer);
   });
 
-  runner.on('failure', function(err) {
-    res.writeHead(500);
-    res.end("Failed to retreive document");
-  });
+  runner.on('failure', commonFailure(res));
 
   runner.run(key);
 });
@@ -72,7 +67,6 @@ rudder.del("/design/" + name_regex, function(req, res, key) {
   });
 
   runner.on("failure", function(err) {
-    console.log(err);
     res.writeHead(500, { "Content-type": "text/plain" });
     res.end();
   });
@@ -108,24 +102,27 @@ journeyman.use(strike.middleware());
 var views_path = path.join(__dirname, 'views');
 journeyman.use(function(req, res, next) {
   res.render = function(file_path, params) {
-    params = params || {};
-    var output = jade.renderFile(path.join(views_path, file_path + '.jade'), params);
+    var output = jade.renderFile(path.join(views_path, file_path + '.jade'), params || {});
     this.writeHead(200, { 'Content-type': 'text/html' });
     this.end(output);
   }
   next();
 });
 
-function bindRunnerEvents(runner) {
+function commonFailure(response) {
+  return function(err) {
+    response.writeHead(500);
+    response.end("Failed to retreive document");
+  }
+}
+
+function sendCouchResponse(runner, response) {
   runner.on('success', function(doc) {
-    runner.resource.writeHead(200, { 'Content-type': 'application/json' });
-    runner.resource.end(JSON.stringify(doc));
+    response.writeHead(200, { 'Content-type': 'application/json' });
+    response.end(JSON.stringify(doc));
   });
 
-  runner.on('failure', function(err) {
-    runner.resource.writeHead(500);
-    runner.resource.end("Failed to retreive document");
-  });
+  runner.on('failure', commonFailure(response));
 }
 
 journeyman.listen();
