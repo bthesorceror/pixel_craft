@@ -5,7 +5,6 @@ var TaxCollector    = require('tax_collector');
 var Journeyman      = require('journeyman');
 var Rudder          = require('rudder');
 var path            = require('path');
-var jade            = require('jade');
 var Runner5         = require('runner5');
 
 var ImageStore      = require('./lib/image_store');
@@ -97,16 +96,7 @@ rudder.post("/save", function(req, res) {
 
 journeyman.use(rudder.middleware());
 journeyman.use(strike.middleware());
-
-var views_path = path.join(__dirname, 'views');
-journeyman.use(function(req, res, next) {
-  res.render = function(file_path, params) {
-    var output = jade.renderFile(path.join(views_path, file_path + '.jade'), params || {});
-    this.writeHead(200, { 'Content-type': 'text/html' });
-    this.end(output);
-  }
-  next();
-});
+journeyman.use(require('./lib/renderer'));
 
 function commonFailure(response) {
   return function(err) {
