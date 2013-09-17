@@ -73,7 +73,6 @@ rudder.del("/design/" + name_regex, function(req, res, key) {
 
 rudder.post("/save", function(req, res) {
   var collector = new TaxCollector(req);
-  var json;
 
   var runner = new Runner5(image_store, image_store.save);
 
@@ -88,7 +87,7 @@ rudder.post("/save", function(req, res) {
   });
 
   collector.on('ready', function(data) {
-    json = JSON.parse(data);
+    var json = JSON.parse(data);
     json.screenshot = ImageStore.buildImageUrl(json.name);
     runner.run(json);
   });
