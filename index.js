@@ -27,11 +27,11 @@ rudder.get("/list.json", function(req, res) {
 });
 
 rudder.get("/new", function(req, res) {
-  res.render("show");
+  res.render("show", { colors: ImageStore.colors });
 });
 
 rudder.get("/design/" + name_regex, function(req, res, key) {
-  res.render("show");
+  res.render("show", { colors: ImageStore.colors });
 });
 
 rudder.get("/item/" + name_regex + ".json", function(req, res, key) {

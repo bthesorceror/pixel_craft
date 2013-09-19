@@ -14,8 +14,7 @@ block content
     ul#wool
       li.active
         a.white(href='#') white
-      each color in ['orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black']
-
+      each color in colors
         li
           a(href='#', class=color)= color
     a#erase(href="#") erase
