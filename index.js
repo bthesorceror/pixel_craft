@@ -6,6 +6,7 @@ if (process.env.NODE_ENV != 'production') {
 var LightningStrike = require('lightning_strike');
 var TaxCollector    = require('tax_collector');
 var Journeyman      = require('journeyman');
+var Session         = require('./lib/sessions');
 var Rudder          = require('rudder');
 var path            = require('path');
 var Runner5         = require('runner5');
@@ -14,6 +15,7 @@ var ImageStore      = require('./lib/image_store');
 
 var journeyman  = new Journeyman(3000);
 var rudder      = new Rudder();
+var sessions    = new Session(30 * 60);
 var strike      = new LightningStrike(path.join(__dirname, 'static'));
 var image_store = new ImageStore(process.env.IMAGE_STORE_URL);
 var name_regex = "([a-zA-Z0-9]*)";
@@ -97,6 +99,7 @@ rudder.post("/save", function(req, res) {
 });
 
 journeyman.use(rudder.middleware());
+journeyman.use(sessions.middleware());
 journeyman.use(strike.middleware());
 journeyman.use(require('./lib/renderer'));
 
