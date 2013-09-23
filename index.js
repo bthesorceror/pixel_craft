@@ -4,14 +4,14 @@ if (process.env.NODE_ENV != 'production') {
 }
 
 var LightningStrike = require('lightning_strike');
-var TaxCollector    = require('tax_collector');
 var Journeyman      = require('journeyman');
-var Session         = require('./lib/sessions');
 var Rudder          = require('rudder');
 var path            = require('path');
 var Runner5         = require('runner5');
 
-var ImageStore      = require('./lib/image_store');
+var ImageStore = require('./lib/image_store');
+var Session    = require('./lib/sessions');
+var Collector  = require('./lib/collector');
 
 var journeyman  = new Journeyman(3000);
 var rudder      = new Rudder();
@@ -77,9 +77,10 @@ rudder.del("/design/" + name_regex, function(req, res, key) {
 });
 
 rudder.post("/save", function(req, res) {
-  var collector = new TaxCollector(req);
-
   var runner = new Runner5(image_store, image_store.save);
+  var collector = new Collector();
+
+  req.pipe(collector);
 
   runner.on('success', function() {
     res.writeHead(200);
