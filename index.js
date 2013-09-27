@@ -103,6 +103,13 @@ journeyman.use(rudder.middleware());
 journeyman.use(sessions.middleware());
 journeyman.use(strike.middleware());
 journeyman.use(require('./lib/renderer'));
+journeyman.use(function(req, res, next) {
+  res.redirect = function(location) {
+    res.writeHead(302, { 'Location': location });
+    res.end();
+  }
+  next();
+});
 
 function commonFailure(response) {
   return function(err) {
