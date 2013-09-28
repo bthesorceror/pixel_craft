@@ -12,13 +12,26 @@ var Runner5         = require('runner5');
 var ImageStore = require('./lib/image_store');
 var Session    = require('./lib/sessions');
 var Collector  = require('./lib/collector');
+var Twitter    = require('./lib/twitter');
 
 var journeyman  = new Journeyman(3000);
 var rudder      = new Rudder();
 var sessions    = new Session(30 * 60);
 var strike      = new LightningStrike(path.join(__dirname, 'static'));
 var image_store = new ImageStore(process.env.IMAGE_STORE_URL);
-var name_regex = "([a-zA-Z0-9]*)";
+var name_regex  = "([a-zA-Z0-9]*)";
+
+rudder.get(Twitter.login_path, Twitter.requestToken);
+
+rudder.get(Twitter.authorize_path, function(req, res) {
+  Twitter.authorize(req, res, "/");
+});
+
+rudder.get(Twitter.logout_path, function(req, res) {
+  Twitter.logout(req, res, function() {
+    res.redirect("/");
+  });
+});
 
 rudder.get("/list.json", function(req, res) {
   var runner = new Runner5(image_store, image_store.list);
@@ -73,6 +86,7 @@ rudder.del("/design/" + name_regex, function(req, res, key) {
     res.writeHead(500, { "Content-type": "text/plain" });
     res.end();
   });
+
   runner.run(key);
 });
 
