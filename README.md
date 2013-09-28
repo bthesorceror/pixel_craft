@@ -29,8 +29,8 @@ Requires that the sass ruby gem be install
 ## Environment variables
 
 - IMAGE_STORE_URL must be set to couchdb url (with database name) i.e. http://local:host@localhost:5984/image_store
-- TWITTER_APP_TOKEN must be set to Twitter applications's consumer key
-- TWITTER_APP_SECRET must be set to Twitter applications's consumer secret
+- TWITTER_APP_TOKEN must be set to Twitter application's consumer key
+- TWITTER_APP_SECRET must be set to Twitter application's consumer secret
 
 ## Data Structure
 
